@@ -1,35 +1,38 @@
+import 'package:toast/toast.dart';
 import 'package:flutter/material.dart';
 
 void main(){
-  runApp(MyApp());
+  runApp(
+    MaterialApp(
+      title:"App Title",
+      home:Scaffold(
+        appBar: AppBar(
+          title:Text("AppBar")
+        ),
+        body:listView(),
+      )
+    )
+  );
 }
 
-class MyApp extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    var val="hello";
-    return MaterialApp(
-      title:"my title",
-      home: Scaffold(
-        appBar: AppBar(
-          title:Text("First page"),
-        ) ,
-        body: Material(
-          child: Column(children: <Widget>[
-          Center(
-            child:new Text(val)
-          ),
-          RaisedButton(
-            child: Text("Click here"),
-            onPressed: (){
-              val="hai";
-            }
-            )
-          ],
-        ),
-        )
-        )
-    );
-  }
+List<String> Generate(){
+  var items=List<String>.generate(1000, (counter)=>"Item $counter");
+return items;
+}
+
+Widget listView(){
+ var items=Generate();
+
+ var list=ListView.builder(
+   itemBuilder:(context,index){
+     return ListTile(
+       leading:Icon(Icons.airport_shuttle),
+       title:Text(items[index]),
+       onTap: (){
+         debugPrint("${items[index]} was clicked");
+         Toast.show("${items[index]} was clicked",context,gravity: Toast.BOTTOM);
+       },
+     );
+   });
+   return list;
 }
