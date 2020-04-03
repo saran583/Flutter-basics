@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 void main(){
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     title:"Basics",
     home: MyApp()
   )
@@ -11,7 +12,6 @@ void main(){
 class MyApp extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _MyAppState();
   }
   
@@ -19,10 +19,12 @@ class MyApp extends StatefulWidget{
 
 class _MyAppState extends State<MyApp>{
 String valu="Select a City";
+var currencies=["A","B","C","D","E"];
+
+  String selected = "B";
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title:Text("First Page")
@@ -45,6 +47,21 @@ String valu="Select a City";
                 }
               });
             }
+          ),
+          DropdownButton<String>(
+            items: currencies.map((String DropDownItems){
+              return DropdownMenuItem<String>(
+                value:DropDownItems,
+                child:Text(DropDownItems),
+                );
+              }).toList(),
+            onChanged: (String newvalue){
+               setState(() {
+                 this.selected=newvalue;
+               });
+
+             },
+             value:selected
           ),
           Padding(
             padding: EdgeInsets.all(30),
